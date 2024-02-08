@@ -10,6 +10,8 @@ var _count = 0
 var total_requests = 0
 var total_loss = 0
 
+var optimization_value = 0.1
+
 
 
 func start_simulation(use_claster:bool):
@@ -34,10 +36,13 @@ func finish_simulation():
 	
 func generate_city():
 	print("Iteration (", _count+1, "/", Global.limit, ") started.")
+	
+	city.rsu_delivered = rsu_delivered
 	city.start_simulation()
 
 
 func save_to_file(filename, header, data:Dictionary):
+	
 	var file = File.new()
 	var file_path = Global.directory+"/"+filename+".csv"
 	
@@ -60,7 +65,8 @@ func mean(_array:Array):
 	return _result/_array.size()
 
 
-func _on_City_done(from, _total_requests, _total_loss, _data, _rsu_energy):
+var rsu_delivered = {}
+func _on_City_done(from, _total_requests, _total_loss, _data, _rsu_energy, _rsu_delivered):
 	
 	total_requests += _total_requests
 	total_loss += _total_loss
@@ -74,6 +80,12 @@ func _on_City_done(from, _total_requests, _total_loss, _data, _rsu_energy):
 	var _saved_rsu_data = save_to_file(filename, Global.csv_header_rsu, _rsu_energy)
 	from.stop_simulation()
 	
+	for _rsu_pos in _rsu_delivered:
+		if rsu_delivered.get(_rsu_pos) == null:
+			rsu_delivered[_rsu_pos] = 0
+		
+		rsu_delivered[_rsu_pos] += _rsu_delivered[_rsu_pos]
+	
 	print(_saved_rsu_data, " saved data")
 	print(_saved_file_name, " finished and saved.")
 	
@@ -81,8 +93,9 @@ func _on_City_done(from, _total_requests, _total_loss, _data, _rsu_energy):
 	if Global.limit - _count > 0:
 		generate_city()
 	else:
+		if optimization_value != 0:
+			city.purge_rsus(optimization_value)
 		finish_simulation()
-	
 
 func _on_City_save(_city):
 	var packed_scene = PackedScene.new()
@@ -139,7 +152,6 @@ func _on_FileDialogSettings_file_selected(path):
 		load_config(path)
 
 
-
 func _on_loadSettings_pressed():
 	$FileDialogSettings.mode = FileDialog.MODE_OPEN_FILE
 	$FileDialogSettings.popup_centered()
@@ -148,7 +160,6 @@ func _on_loadSettings_pressed():
 func _on_saveSettings_pressed():
 	$FileDialogSettings.mode = FileDialog.MODE_SAVE_FILE
 	$FileDialogSettings.popup_centered()
-	
 
 
 onready var claster_amount = $HSplitContainer/PanelSettings.line_rsu_claster_amount

@@ -19,7 +19,7 @@ onready var line_connection_amount = $ViewportContainer/ScrollContainer/VBoxCont
 onready var line_enegry_claster = $ViewportContainer/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer16/LineEditEnergyClaster
 onready var line_enegry = $ViewportContainer/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer17/LineEditEnergy
 onready var line_energy_server = $ViewportContainer/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer18/LineEditEnergyServer
-
+onready var line_vehicles_amount = $ViewportContainer/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer19/LineEditVehiclesRsu
 
 func _ready():
 	load_from_global()
@@ -44,6 +44,7 @@ func load_from_global():
 	line_enegry_claster.set_value(Global.RSU_energy_claster)
 	line_enegry.set_value(Global.RSU_energy_vehicle)
 	line_energy_server.set_value(Global.RSU_enegry_server)
+	line_vehicles_amount.set_value(Global.vehicle_RSU_amount)
 	
 
 func load_to_global():
@@ -65,3 +66,4 @@ func load_to_global():
 	Global.RSU_energy_claster = line_enegry_claster.last_value
 	Global.RSU_enegry_server = line_energy_server.last_value
 	Global.RSU_energy_vehicle = line_enegry.last_value
+	Global.vehicle_RSU_amount = line_vehicles_amount.last_value

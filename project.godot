@@ -9,6 +9,16 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Node",
+"class": "Connection",
+"language": "GDScript",
+"path": "res://connector.gd"
+}, {
+"base": "Node",
+"class": "Connector",
+"language": "GDScript",
+"path": "res://connection.gd"
+}, {
 "base": "LineEdit",
 "class": "LineValidator",
 "language": "GDScript",
@@ -18,10 +28,18 @@ _global_script_classes=[ {
 "class": "PanningCamera2D",
 "language": "GDScript",
 "path": "res://PanningCamera2D.gd"
+}, {
+"base": "Node2D",
+"class": "RSU",
+"language": "GDScript",
+"path": "res://RSU.gd"
 } ]
 _global_script_class_icons={
+"Connection": "",
+"Connector": "",
 "LineValidator": "",
-"PanningCamera2D": ""
+"PanningCamera2D": "",
+"RSU": ""
 }
 
 [application]

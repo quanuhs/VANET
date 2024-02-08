@@ -2,12 +2,13 @@ extends Area2D
 
 
 enum status {wait_for_vehicle, recive_request, send_response, ask_server, ask_claster}
-
+var heat = 0
 
 var memory = []
 
 # Запрашивается по сети
 var memory_request = []
+
 
 var memory_time = []
 
@@ -17,9 +18,13 @@ var claster_index = 0
 var delivered_data = {}
 var requested_data = {}
 
+var connected_vehicles = []
+
 var energy = {"vehicles": 0, "claster": 0, "server": 0, }
 var time_used = {"vehicles": [], "claster": [], "server": [], }
 var start_time = OS.get_ticks_msec()
+
+var amount_served = 0
 
 func _ready():
 	$Label.hide()
@@ -32,6 +37,9 @@ func _ready():
 		time_used.server.append(0)
 	
 
+func _physics_process(delta):
+	check_for_vehicles()
+
 func _process(delta):
 	#for i in range(len(memory)):
 	#	add_memory_time(i, 0)
@@ -42,6 +50,27 @@ func _process(delta):
 		if _res < 0:
 			_res = 0
 		$Label.text += str(_res) + " "
+
+	
+	$LabelLoss.text = str(get_delivered())
+	
+
+func heatup(percent):
+	heat = percent
+
+func difference(arr1, arr2):
+	var only_in_arr1 = []
+	for v in arr1:
+		if not (v in arr2):
+			only_in_arr1.append(v)
+	return only_in_arr1
+	
+
+func check_for_vehicles():
+	for vehicle in connected_vehicles:
+		if vehicle.connected_rsu == null:
+			vehicle.connected_rsu = self
+			
 
 func export_data():
 	return [get_instance_id(), energy.vehicles, energy.claster, energy.server, time_used.vehicles.max(), time_used.claster.max(), time_used.server.max()]
@@ -54,7 +83,24 @@ func sum_enegry():
 	return _sum
 
 func _draw():
-	draw_circle(Vector2.ZERO, Global.RSU_radius, Color(0.2, 0.5, 0.5, 0.5))
+
+	var color = Color(0.2, 0.5, 0.5)
+
+	if (heat >= 0.9):
+		color = Color.red
+	
+	elif (heat >= 0.7):
+		color = Color.orangered
+	
+	elif (heat >= 0.5):
+		color = Color.orange
+	
+	elif (heat >= 0.3):
+		color = Color.yellow
+	
+	color.a = 0.6
+	
+	draw_circle(Vector2.ZERO, Global.RSU_radius, color)
 
 
 func answer_to_vehicle(vehicle, memory_index):
@@ -102,17 +148,23 @@ func ask_data(vehicle, memory_index):
 		else:
 			ask_server(memory_index)
 		return false
+
+func get_delivered():
+	var amount_delivered = 0
+	for _v_id in delivered_data:
+		amount_delivered += delivered_data[_v_id]
 	
+	return amount_delivered
+
 func set_radius(radius):
 	$CollisionShape2D.shape.radius = radius
 
 
-func stop_service(vehicle):	
+func stop_service(vehicle):
 	vehicle.change_color_status(0)
-	
 	vehicle.stop_service(self)
-	yield(vehicle, "service_ended")
-
+	#yield(vehicle, "service_ended")
+	connected_vehicles.erase(vehicle)
 
 func ask_claster(memory_index):
 	
@@ -169,6 +221,7 @@ func ask_server(memory_index):
 func set_current_vehicle(vehicle):
 	vehicle.start_service(self)
 	vehicle.change_color_status(1)
+	connected_vehicles.append(vehicle)
 
 
 func _on_RsuArea_body_entered(body):

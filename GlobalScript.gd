@@ -13,8 +13,10 @@ var RSU_claster_amount = 3
 var vehicle_speed_mean = 15
 var vehicle_speed_deviation = 1.0
 
-
+var vehicle_RSU_amount = 0
 var limit = 10
+
+var total_requests = 1
 
 var wait_request = 1
 var wait_ask_server = 3500
@@ -28,7 +30,7 @@ var vehicle_memory_min = 3
 var vehicle_memory_max = 5
 
 var time_to_live = 5
-var vehicles_amount = 500
+var vehicles_amount = 100
 
 var csv_header_vehicles = ["VehicleId", "Speed", "TotalRequests", "UnsolvedRequests"]
 var delim = "\t"

@@ -96,6 +96,8 @@ func set_memory(memory_min, memory_max):
 	requested_index = memory_indexes.pop_at(0)
 	$Label.text = str(memory_indexes.size())
 	
+	return total_requests
+	
 
 
 func _get_response():
@@ -109,11 +111,11 @@ func _get_response():
 		memory[requested_index] = 0
 		
 	connected_rsu.log_vehicle_data(self, true)
+	$Label.text = str(memory_indexes.size())
 	
 	if not check_if_requests_empty():
 		requested_index = memory_indexes.pop_at(0)
 	
-	$Label.text = str(memory_indexes.size())
 	
 
 func recive_response(when):
@@ -139,12 +141,6 @@ func check_if_requests_empty():
 func start_service(rsu):
 	if connected_rsu != null:
 		return
-	
-	
-	#if connected_rsu != rsu and connected_rsu != null:
-	#	stop_service(connected_rsu)
-	#	yield(self, "service_ended")
-	
 	#print(self, " ", rsu, " ON")
 		
 	connected_rsu = rsu
@@ -168,9 +164,7 @@ func stop_service(rsu):
 	awaiting_response = false
 	
 	if len(memory_indexes) == 0:
-		$Label.text = str(memory_indexes.size())
 		change_color_status(2)
-	
 	
 	emit_signal("service_ended")
 
@@ -184,13 +178,12 @@ func move():
 	get_point_path(target_position)
 
 func move_to_point():
-	if position.distance_to(path[0]) <= 8:
+	if position.distance_to(path[0]) <= 2:
 		path.remove(0)
 		if path.size() == 0:
 			emit_signal("destination_reached", self)
 			if connected_rsu:
 				stop_service(connected_rsu)
-				yield(self, "service_ended")
 			queue_free()
 	else:
 		var direction = position.direction_to(path[0])

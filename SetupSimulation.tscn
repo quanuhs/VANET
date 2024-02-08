@@ -38,7 +38,7 @@ anchor_bottom = 1.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer/PanelSettings/ViewportContainer/ScrollContainer"]
 margin_right = 500.0
-margin_bottom = 689.0
+margin_bottom = 776.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 25
@@ -142,7 +142,7 @@ text = "save"
 [node name="HBoxContainer" type="GridContainer" parent="HSplitContainer/PanelSettings/ViewportContainer/ScrollContainer/VBoxContainer"]
 margin_top = 192.0
 margin_right = 500.0
-margin_bottom = 689.0
+margin_bottom = 776.0
 size_flags_horizontal = 3
 theme = SubResource( 1 )
 custom_constants/vseparation = 25
@@ -150,14 +150,14 @@ custom_constants/hseparation = 25
 columns = 3
 
 [node name="VBoxContainer1" type="VBoxContainer" parent="HSplitContainer/PanelSettings/ViewportContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
-margin_right = 148.0
+margin_right = 149.0
 margin_bottom = 62.0
 size_flags_horizontal = 7
 size_flags_vertical = 7
 alignment = 1
 
 [node name="Label" type="Label" parent="HSplitContainer/PanelSettings/ViewportContainer/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer1"]
-margin_right = 148.0
+margin_right = 149.0
 margin_bottom = 14.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -167,7 +167,7 @@ valign = 1
 
 [node name="LineEditVehicleAmount" type="LineEdit" parent="HSplitContainer/PanelSettings/ViewportContainer/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer1"]
 margin_top = 18.0
-margin_right = 148.0
+margin_right = 149.0
 margin_bottom = 62.0
 rect_min_size = Vector2( 0, 44 )
 size_flags_horizontal = 3
@@ -179,8 +179,8 @@ min_value = 1.0
 is_float = false
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="HSplitContainer/PanelSettings/ViewportContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
-margin_left = 173.0
-margin_right = 321.0
+margin_left = 174.0
+margin_right = 322.0
 margin_bottom = 62.0
 size_flags_horizontal = 7
 size_flags_vertical = 7
@@ -208,8 +208,8 @@ script = ExtResource( 4 )
 min_value = 1.0
 
 [node name="VBoxContainer3" type="VBoxContainer" parent="HSplitContainer/PanelSettings/ViewportContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
-margin_left = 346.0
-margin_right = 499.0
+margin_left = 347.0
+margin_right = 500.0
 margin_bottom = 62.0
 size_flags_horizontal = 7
 size_flags_vertical = 7
@@ -237,14 +237,14 @@ script = ExtResource( 4 )
 
 [node name="VBoxContainer4" type="VBoxContainer" parent="HSplitContainer/PanelSettings/ViewportContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
 margin_top = 87.0
-margin_right = 148.0
+margin_right = 149.0
 margin_bottom = 149.0
 size_flags_horizontal = 7
 size_flags_vertical = 7
 alignment = 1
 
 [node name="Label" type="Label" parent="HSplitContainer/PanelSettings/ViewportContainer/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer4"]
-margin_right = 148.0
+margin_right = 149.0
 margin_bottom = 14.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -254,7 +254,7 @@ valign = 1
 
 [node name="LineEditRsuRadius" type="LineEdit" parent="HSplitContainer/PanelSettings/ViewportContainer/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer4"]
 margin_top = 18.0
-margin_right = 148.0
+margin_right = 149.0
 margin_bottom = 62.0
 rect_min_size = Vector2( 0, 44 )
 size_flags_horizontal = 3
@@ -264,9 +264,9 @@ placeholder_text = "30"
 script = ExtResource( 4 )
 
 [node name="VBoxContainer5" type="VBoxContainer" parent="HSplitContainer/PanelSettings/ViewportContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
-margin_left = 173.0
+margin_left = 174.0
 margin_top = 87.0
-margin_right = 321.0
+margin_right = 322.0
 margin_bottom = 149.0
 size_flags_horizontal = 7
 size_flags_vertical = 7
@@ -294,9 +294,9 @@ script = ExtResource( 4 )
 is_float = false
 
 [node name="VBoxContainer6" type="VBoxContainer" parent="HSplitContainer/PanelSettings/ViewportContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
-margin_left = 346.0
+margin_left = 347.0
 margin_top = 87.0
-margin_right = 499.0
+margin_right = 500.0
 margin_bottom = 149.0
 size_flags_horizontal = 7
 size_flags_vertical = 7
@@ -325,14 +325,14 @@ is_float = false
 
 [node name="VBoxContainer7" type="VBoxContainer" parent="HSplitContainer/PanelSettings/ViewportContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
 margin_top = 174.0
-margin_right = 148.0
+margin_right = 149.0
 margin_bottom = 236.0
 size_flags_horizontal = 7
 size_flags_vertical = 7
 alignment = 1
 
 [node name="Label" type="Label" parent="HSplitContainer/PanelSettings/ViewportContainer/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer7"]
-margin_right = 148.0
+margin_right = 149.0
 margin_bottom = 14.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -342,7 +342,7 @@ valign = 1
 
 [node name="LineEditMemoryAmount" type="LineEdit" parent="HSplitContainer/PanelSettings/ViewportContainer/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer7"]
 margin_top = 18.0
-margin_right = 148.0
+margin_right = 149.0
 margin_bottom = 62.0
 rect_min_size = Vector2( 0, 44 )
 size_flags_horizontal = 3
@@ -354,9 +354,9 @@ min_value = 1.0
 is_float = false
 
 [node name="VBoxContainer8" type="VBoxContainer" parent="HSplitContainer/PanelSettings/ViewportContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
-margin_left = 173.0
+margin_left = 174.0
 margin_top = 174.0
-margin_right = 321.0
+margin_right = 322.0
 margin_bottom = 236.0
 size_flags_horizontal = 7
 size_flags_vertical = 7
@@ -384,9 +384,9 @@ script = ExtResource( 4 )
 is_float = false
 
 [node name="VBoxContainer9" type="VBoxContainer" parent="HSplitContainer/PanelSettings/ViewportContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
-margin_left = 346.0
+margin_left = 347.0
 margin_top = 174.0
-margin_right = 499.0
+margin_right = 500.0
 margin_bottom = 236.0
 size_flags_horizontal = 7
 size_flags_vertical = 7
@@ -415,14 +415,14 @@ is_float = false
 
 [node name="VBoxContainer10" type="VBoxContainer" parent="HSplitContainer/PanelSettings/ViewportContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
 margin_top = 261.0
-margin_right = 148.0
+margin_right = 149.0
 margin_bottom = 323.0
 size_flags_horizontal = 7
 size_flags_vertical = 7
 alignment = 1
 
 [node name="Label" type="Label" parent="HSplitContainer/PanelSettings/ViewportContainer/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer10"]
-margin_right = 148.0
+margin_right = 149.0
 margin_bottom = 14.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -432,7 +432,7 @@ valign = 1
 
 [node name="LineEditClasterDelay" type="LineEdit" parent="HSplitContainer/PanelSettings/ViewportContainer/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer10"]
 margin_top = 18.0
-margin_right = 148.0
+margin_right = 149.0
 margin_bottom = 62.0
 rect_min_size = Vector2( 0, 44 )
 size_flags_horizontal = 3
@@ -442,9 +442,9 @@ placeholder_text = "5"
 script = ExtResource( 4 )
 
 [node name="VBoxContainer11" type="VBoxContainer" parent="HSplitContainer/PanelSettings/ViewportContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
-margin_left = 173.0
+margin_left = 174.0
 margin_top = 261.0
-margin_right = 321.0
+margin_right = 322.0
 margin_bottom = 323.0
 size_flags_horizontal = 7
 size_flags_vertical = 7
@@ -471,9 +471,9 @@ placeholder_text = "5"
 script = ExtResource( 4 )
 
 [node name="VBoxContainer12" type="VBoxContainer" parent="HSplitContainer/PanelSettings/ViewportContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
-margin_left = 346.0
+margin_left = 347.0
 margin_top = 261.0
-margin_right = 499.0
+margin_right = 500.0
 margin_bottom = 323.0
 size_flags_horizontal = 7
 size_flags_vertical = 7
@@ -501,14 +501,14 @@ script = ExtResource( 4 )
 
 [node name="VBoxContainer13" type="VBoxContainer" parent="HSplitContainer/PanelSettings/ViewportContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
 margin_top = 348.0
-margin_right = 148.0
+margin_right = 149.0
 margin_bottom = 410.0
 size_flags_horizontal = 7
 size_flags_vertical = 7
 alignment = 1
 
 [node name="Label" type="Label" parent="HSplitContainer/PanelSettings/ViewportContainer/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer13"]
-margin_right = 148.0
+margin_right = 149.0
 margin_bottom = 14.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -518,7 +518,7 @@ valign = 1
 
 [node name="LineEditServerDelay" type="LineEdit" parent="HSplitContainer/PanelSettings/ViewportContainer/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer13"]
 margin_top = 18.0
-margin_right = 148.0
+margin_right = 149.0
 margin_bottom = 62.0
 rect_min_size = Vector2( 0, 44 )
 size_flags_horizontal = 3
@@ -528,9 +528,9 @@ placeholder_text = "5"
 script = ExtResource( 4 )
 
 [node name="VBoxContainer14" type="VBoxContainer" parent="HSplitContainer/PanelSettings/ViewportContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
-margin_left = 173.0
+margin_left = 174.0
 margin_top = 348.0
-margin_right = 321.0
+margin_right = 322.0
 margin_bottom = 410.0
 size_flags_horizontal = 7
 size_flags_vertical = 7
@@ -559,9 +559,9 @@ min_value = 1.0
 is_float = false
 
 [node name="VBoxContainer15" type="VBoxContainer" parent="HSplitContainer/PanelSettings/ViewportContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
-margin_left = 346.0
+margin_left = 347.0
 margin_top = 348.0
-margin_right = 499.0
+margin_right = 500.0
 margin_bottom = 410.0
 size_flags_horizontal = 7
 size_flags_vertical = 7
@@ -590,14 +590,14 @@ is_float = false
 
 [node name="VBoxContainer16" type="VBoxContainer" parent="HSplitContainer/PanelSettings/ViewportContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
 margin_top = 435.0
-margin_right = 148.0
+margin_right = 149.0
 margin_bottom = 497.0
 size_flags_horizontal = 7
 size_flags_vertical = 7
 alignment = 1
 
 [node name="Label" type="Label" parent="HSplitContainer/PanelSettings/ViewportContainer/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer16"]
-margin_right = 148.0
+margin_right = 149.0
 margin_bottom = 14.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -607,7 +607,7 @@ valign = 1
 
 [node name="LineEditEnergyClaster" type="LineEdit" parent="HSplitContainer/PanelSettings/ViewportContainer/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer16"]
 margin_top = 18.0
-margin_right = 148.0
+margin_right = 149.0
 margin_bottom = 62.0
 rect_min_size = Vector2( 0, 44 )
 size_flags_horizontal = 3
@@ -617,9 +617,9 @@ placeholder_text = "5"
 script = ExtResource( 4 )
 
 [node name="VBoxContainer17" type="VBoxContainer" parent="HSplitContainer/PanelSettings/ViewportContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
-margin_left = 173.0
+margin_left = 174.0
 margin_top = 435.0
-margin_right = 321.0
+margin_right = 322.0
 margin_bottom = 497.0
 size_flags_horizontal = 7
 size_flags_vertical = 7
@@ -646,9 +646,9 @@ placeholder_text = "5"
 script = ExtResource( 4 )
 
 [node name="VBoxContainer18" type="VBoxContainer" parent="HSplitContainer/PanelSettings/ViewportContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
-margin_left = 346.0
+margin_left = 347.0
 margin_top = 435.0
-margin_right = 499.0
+margin_right = 500.0
 margin_bottom = 497.0
 size_flags_horizontal = 7
 size_flags_vertical = 7
@@ -666,6 +666,34 @@ valign = 1
 [node name="LineEditEnergyServer" type="LineEdit" parent="HSplitContainer/PanelSettings/ViewportContainer/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer18"]
 margin_top = 18.0
 margin_right = 153.0
+margin_bottom = 62.0
+rect_min_size = Vector2( 0, 44 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+align = 1
+placeholder_text = "5"
+script = ExtResource( 4 )
+
+[node name="VBoxContainer19" type="VBoxContainer" parent="HSplitContainer/PanelSettings/ViewportContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
+margin_top = 522.0
+margin_right = 149.0
+margin_bottom = 584.0
+size_flags_horizontal = 7
+size_flags_vertical = 7
+alignment = 1
+
+[node name="Label" type="Label" parent="HSplitContainer/PanelSettings/ViewportContainer/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer19"]
+margin_right = 149.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Vehicle cluster"
+align = 1
+valign = 1
+
+[node name="LineEditVehiclesRsu" type="LineEdit" parent="HSplitContainer/PanelSettings/ViewportContainer/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer19"]
+margin_top = 18.0
+margin_right = 149.0
 margin_bottom = 62.0
 rect_min_size = Vector2( 0, 44 )
 size_flags_horizontal = 3
@@ -696,24 +724,21 @@ position = Vector2( 1024, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 popup_exclusive = true
-window_title = "Open a Directory"
+window_title = "Открыть каталог"
 resizable = true
 mode = 2
 access = 2
 show_hidden_files = true
-current_dir = "/Users/quanu/Documents/GodotGames/Stable3.4"
-current_path = "/Users/quanu/Documents/GodotGames/Stable3.4/"
 
 [node name="FileDialogSettings" type="FileDialog" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 popup_exclusive = true
+window_title = "Сохранить файл"
 resizable = true
 access = 2
 filters = PoolStringArray( "*.vanet" )
 show_hidden_files = true
-current_dir = "/Users/quanu/Documents/GodotGames/Stable3.4"
-current_path = "/Users/quanu/Documents/GodotGames/Stable3.4/"
 
 [connection signal="pressed" from="HSplitContainer/PanelSettings/ViewportContainer/ScrollContainer/VBoxContainer/VBoxContainer/ButtonCancel" to="." method="_on_ButtonCancel_pressed"]
 [connection signal="pressed" from="HSplitContainer/PanelSettings/ViewportContainer/ScrollContainer/VBoxContainer/VBoxContainer/ButtonStart" to="." method="_on_ButtonStart_pressed"]

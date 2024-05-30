@@ -23,9 +23,12 @@ Use the right mouse button to delete tiles.
 Use middle mouse button to move around the map.
 
 ### Settings
-![top settings panel](https://github.com/quanuhs/VANET/assets/37934662/c00470ff-1293-4c29-bb24-4d395ce3e106)
+Settings are generalized and presented in left menu. Example of settings is presented bellow:
+<img width="295" alt="image" src="https://github.com/quanuhs/VANET/assets/37934662/017b4d9f-3715-4bf4-bde9-5adc90ba6673">
+
 
 #### Save results
+![top settings panel](https://github.com/quanuhs/VANET/assets/37934662/c00470ff-1293-4c29-bb24-4d395ce3e106)
 By clicking on "choose directory", you can select a preferred directory to save .csv files.
 Inside the .csv files, you will find information regarding:
 1. Vehicles: id, speed, total requests made, unsolved requests.

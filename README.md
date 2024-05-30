@@ -24,6 +24,7 @@ Use middle mouse button to move around the map.
 
 ### Settings
 Settings are generalized and presented in left menu. Example of settings is presented bellow:
+
 <img width="295" alt="image" src="https://github.com/quanuhs/VANET/assets/37934662/017b4d9f-3715-4bf4-bde9-5adc90ba6673">
 
 

@@ -15,7 +15,7 @@ var awaiting_response = false
 
 var connected_rsu = null
 
-var requested_index = 0
+var requested_index = null
 var total_requests = 0
 
 signal destination_reached(body)
@@ -71,6 +71,9 @@ func ask_rsu():
 	if connected_rsu == null:
 		return
 	
+	if requested_index == null:
+		requested_index = memory_indexes.pop_at(0)
+	
 	connected_rsu.ask_data(self, requested_index)
 
 
@@ -93,7 +96,7 @@ func set_memory(memory_min, memory_max):
 		if memory[i] == 1:
 			memory_indexes.append(i)
 	
-	requested_index = memory_indexes.pop_at(0)
+	#requested_index = memory_indexes.pop_at(0)
 	$Label.text = str(memory_indexes.size())
 	
 	return total_requests
@@ -126,7 +129,7 @@ func recive_response(when):
 func check_if_requests_empty():
 	if requested_index == null or len(memory_indexes) == 0:
 		
-		$CollisionShape2D.queue_free()
+		#$CollisionShape2D.queue_free()
 		
 		if connected_rsu:
 			stop_service(connected_rsu)
@@ -164,6 +167,7 @@ func stop_service(rsu):
 	awaiting_response = false
 	
 	if len(memory_indexes) == 0:
+		check_if_requests_empty()
 		change_color_status(2)
 	
 	emit_signal("service_ended")

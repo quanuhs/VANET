@@ -15,7 +15,7 @@ var awaiting_response = false
 
 var connected_rsu = null
 
-var requested_index = 0
+var requested_index = null
 var total_requests = 0
 
 signal destination_reached(body)
@@ -93,7 +93,7 @@ func set_memory(memory_min, memory_max):
 		if memory[i] == 1:
 			memory_indexes.append(i)
 	
-	requested_index = memory_indexes.pop_at(0)
+	#requested_index = memory_indexes.pop_at(0)
 	$Label.text = str(memory_indexes.size())
 	
 

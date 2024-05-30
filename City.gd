@@ -151,7 +151,7 @@ func setup_rsus():
 	
 	rsus += rsu_map.get_used_cells_by_id(0)
 	
-	optimal_requests = (Global.vehicle_memory_max * Global.vehicles_amount)/(max(rsus.size(), 1))
+	optimal_requests = ((Global.vehicle_memory_max + Global.vehicle_memory_min)/2 * Global.vehicles_amount)/(max(rsus.size(), 1))
 	
 	var result = []
 	
@@ -255,8 +255,12 @@ var rsu_delivered = {}
 
 func get_heat_value():
 	
-	return optimal_requests * Global.limit
-	#return float(rsu_delivered.values().max())
+	#return 10
+	#return optimal_requests * Global.limit
+	if (rsu_delivered.values().max() != null):
+		return float(rsu_delivered.values().max())
+	else:
+		return 0
 	#var _sum = 0
 	#for _d in rsu_delivered.values():
 	#	_sum += _d
@@ -278,6 +282,7 @@ func build_heat():
 
 func purge_rsus(optimized_heat):
 	var max_value = get_heat_value()
+	print("MAX: ", max_value)
 
 	for coord in rsu_delivered:
 		if rsu_delivered[coord]/float(max_value) >= optimized_heat:
@@ -285,6 +290,7 @@ func purge_rsus(optimized_heat):
 			continue
 
 		rsu_map.set_cellv(rsu_map.world_to_map(Vector2(coord) - rsu_map.cell_size/2), 1)
+		print(coord, " ", rsu_delivered[coord]/float(max_value), " ", optimized_heat)
 		
 	rsu_delivered.clear()
 

@@ -7,10 +7,7 @@ onready var city = $HSplitContainer/Panel/ViewportContainer/Viewport/City
 
 var _count = 0
 
-var total_requests = 0
-var total_loss = 0
-
-var optimization_value = 0.1
+var optimization_value = 0.6
 
 
 
@@ -67,9 +64,8 @@ func mean(_array:Array):
 
 var rsu_delivered = {}
 func _on_City_done(from, _total_requests, _total_loss, _data, _rsu_energy, _rsu_delivered):
-	
-	total_requests += _total_requests
-	total_loss += _total_loss
+
+	print("Потери: ", _total_loss/float(_total_requests))
 	
 	var filename = "vehicles_"+Global.get_method_used()
 	

@@ -10,14 +10,17 @@ Extract the file to your preferred location and open it.
 ## Usage
 ### Interacting with the Map
 While in VANET.exe, you can use your mouse scroll on the map area to **ZOOM IN** or **ZOOM OUT**.
-Use the arrow keys (left or right) to change the drawable tile. There are four tiles:
+Use the arrow keys (left or right) to change the drawable tile. There are five tiles:
 1. ![bicycle sign](https://github.com/quanuhs/VANET/assets/37934662/67612bb4-2558-4a5f-8c59-238d1e5ecdca) - Represents the place where vehicles will spawn.
 2. ![parking sign](https://github.com/quanuhs/VANET/assets/37934662/c3e95272-de7d-4158-b6f5-57d5b0baedf4) - Represents the place where vehicles will reach their final destination.
 3. ![blue box](https://github.com/quanuhs/VANET/assets/37934662/ae4a965f-f2c3-4ed1-8d9d-83947293ff51) - Represents the RSU (Roadside Unit).
-4. ![gray tile](https://github.com/quanuhs/VANET/assets/37934662/dfd1e4d1-9843-455d-a54b-f97614b94a6e) - Represents the road.
+4. ![orange_box](https://github.com/quanuhs/VANET/assets/37934662/1d35ab5e-b99e-4190-a49b-d8a2e54d343e) - Represents unoptimal RSUs (Roadside Units).
+5. ![gray tile](https://github.com/quanuhs/VANET/assets/37934662/dfd1e4d1-9843-455d-a54b-f97614b94a6e) - Represents the road.
+
 
 Use the left mouse button to draw tiles.
 Use the right mouse button to delete tiles.
+Use middle mouse button to move around the map.
 
 ### Settings
 ![top settings panel](https://github.com/quanuhs/VANET/assets/37934662/c00470ff-1293-4c29-bb24-4d395ce3e106)

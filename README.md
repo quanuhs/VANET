@@ -14,7 +14,7 @@ Use the arrow keys (left or right) to change the drawable tile. There are five t
 1. ![bicycle sign](https://github.com/quanuhs/VANET/assets/37934662/67612bb4-2558-4a5f-8c59-238d1e5ecdca) - Represents the place where vehicles will spawn.
 2. ![parking sign](https://github.com/quanuhs/VANET/assets/37934662/c3e95272-de7d-4158-b6f5-57d5b0baedf4) - Represents the place where vehicles will reach their final destination.
 3. ![blue box](https://github.com/quanuhs/VANET/assets/37934662/ae4a965f-f2c3-4ed1-8d9d-83947293ff51) - Represents the RSU (Roadside Unit).
-4. ![orange_box](https://github.com/quanuhs/VANET/assets/37934662/1d35ab5e-b99e-4190-a49b-d8a2e54d343e) - Represents unoptimal RSUs (Roadside Units).
+4. <img width="67" alt="orange_box" src="https://github.com/quanuhs/VANET/assets/37934662/08c368c0-9343-4b0e-ba2b-0ac06db6ee39"> - Represents unoptimal RSUs (Roadside Units).
 5. ![gray tile](https://github.com/quanuhs/VANET/assets/37934662/dfd1e4d1-9843-455d-a54b-f97614b94a6e) - Represents the road.
 
 

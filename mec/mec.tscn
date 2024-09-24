@@ -1,0 +1,44 @@
+[gd_scene load_steps=4 format=3 uid="uid://owyhxge8mkhf"]
+
+[ext_resource type="Script" path="res://mec/mec.gd" id="1_8d1lp"]
+[ext_resource type="PackedScene" uid="uid://cngpkopwmq681" path="res://network_manager/network_manager.tscn" id="2_pfsp5"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ev5ms"]
+
+[node name="MEC" type="Area2D" node_paths=PackedStringArray("network_manager")]
+script = ExtResource("1_8d1lp")
+default_color = Color(0, 0.55, 0.375833, 1)
+radius_default_color = Color(0, 1, 0.683333, 1)
+CONFIG = {
+"bandwidth": 1e+07,
+"frequency": 5.9e+09,
+"noise_figure": 9.0,
+"path_loss_exponent": 0.0,
+"range_radius_m": 5000.0,
+"receiver_sensitivity_dbm": -85.0,
+"transmit_power_dbm": 20
+}
+network_manager = NodePath("NetworkManager")
+
+[node name="Coverage" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ev5ms")
+
+[node name="NetworkManager" parent="." instance=ExtResource("2_pfsp5")]
+
+[node name="Label" type="Label" parent="."]
+z_index = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -114.0
+offset_top = -2.0
+offset_right = 1031.0
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.2, 0.2)
+theme_override_font_sizes/font_size = 0
+text = "RSU"
+horizontal_alignment = 1
+vertical_alignment = 1

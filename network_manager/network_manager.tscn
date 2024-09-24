@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://cngpkopwmq681"]
+
+[ext_resource type="Script" path="res://vehicle/network_manager.gd" id="1_nwr8k"]
+[ext_resource type="Script" path="res://network_manager/interference.gd" id="2_5f7ks"]
+
+[node name="NetworkManager" type="Node2D" node_paths=PackedStringArray("interference")]
+script = ExtResource("1_nwr8k")
+interference = NodePath("Interference")
+
+[node name="Interference" type="Node" parent="."]
+script = ExtResource("2_5f7ks")

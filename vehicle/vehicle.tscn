@@ -1,0 +1,43 @@
+[gd_scene load_steps=7 format=3 uid="uid://cg3e2541gyl6l"]
+
+[ext_resource type="Script" path="res://vehicle/Vehicle.gd" id="1_co57n"]
+[ext_resource type="Texture2D" uid="uid://v0ei3odunfew" path="res://vehicle/vehicle.png" id="2_y00bp"]
+[ext_resource type="Script" path="res://vehicle/draw_vehicle.gd" id="3_a7w8p"]
+[ext_resource type="PackedScene" uid="uid://cngpkopwmq681" path="res://network_manager/network_manager.tscn" id="4_1ul2u"]
+[ext_resource type="Script" path="res://vehicle/logic.gd" id="5_65xuc"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1pl0v"]
+radius = 50.0
+
+[node name="Vehicle" type="PathFollow2D" node_paths=PackedStringArray("network_manager", "logic")]
+cubic_interp = false
+loop = false
+script = ExtResource("1_co57n")
+network_manager = NodePath("NetworkManager")
+logic = NodePath("NetworkManager/Logic")
+
+[node name="DrawPoint" type="Node2D" parent="."]
+script = ExtResource("3_a7w8p")
+
+[node name="Icon" type="Sprite2D" parent="DrawPoint"]
+texture = ExtResource("2_y00bp")
+
+[node name="Area2D" type="Area2D" parent="."]
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0.5, -2.5)
+shape = SubResource("CircleShape2D_1pl0v")
+
+[node name="NetworkManager" parent="." instance=ExtResource("4_1ul2u")]
+
+[node name="Logic" type="Node" parent="NetworkManager"]
+script = ExtResource("5_65xuc")
+
+[node name="_Timer_87719" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[connection signal="accident" from="." to="NetworkManager/Logic" method="_on_vehicle_accident"]
+[connection signal="message_received" from="NetworkManager" to="NetworkManager/Logic" method="_on_signal_handler_message_recived"]
+[connection signal="change_route" from="NetworkManager/Logic" to="." method="_on_logic_change_route"]

@@ -1,3 +1,5 @@
+Архив: https://github.com/quanuhs/VANET-old
+
 # VANET ⚙️[В РАЗРАБОТКЕ]⚙️
 Система для моделирования VANET, написанная на Godot.
 

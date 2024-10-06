@@ -11,8 +11,8 @@ func log10(value: float) -> float:
 func calculate_log_distance_path_loss(distance: float, frequency: float, path_loss_exponent: float = 3.5, reference_distance: float = 1.0) -> float:
 	var wavelength = speed_of_light / frequency
 	# Потери на референсном расстоянии (например, на 1 метр)
-	var free_space_path_loss_ref = (4.0 * PI * reference_distance / wavelength) ** 2
-	var path_loss_ref_db = 10.0 * log10(free_space_path_loss_ref)
+	var free_space_path_loss_ref = (4.0 * PI * reference_distance / wavelength)
+	var path_loss_ref_db = 20.0 * log10(free_space_path_loss_ref)
 	
 	# Потери с учётом расстояния
 	var path_loss_db = path_loss_ref_db + 10 * path_loss_exponent * log10(distance / reference_distance)

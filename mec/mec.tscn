@@ -2,26 +2,15 @@
 
 [ext_resource type="Script" path="res://mec/mec.gd" id="1_8d1lp"]
 [ext_resource type="PackedScene" uid="uid://cngpkopwmq681" path="res://network_manager/network_manager.tscn" id="2_pfsp5"]
+[ext_resource type="Script" path="res://memory/memory.gd" id="2_uov47"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ev5ms"]
-
-[node name="MEC" type="Area2D" node_paths=PackedStringArray("network_manager")]
+[node name="MEC" type="Node2D" node_paths=PackedStringArray("memory", "network_manager") groups=["mec"]]
 script = ExtResource("1_8d1lp")
-default_color = Color(0, 0.55, 0.375833, 1)
-radius_default_color = Color(0, 1, 0.683333, 1)
-CONFIG = {
-"bandwidth": 1e+07,
-"frequency": 5.9e+09,
-"noise_figure": 9.0,
-"path_loss_exponent": 0.0,
-"range_radius_m": 5000.0,
-"receiver_sensitivity_dbm": -85.0,
-"transmit_power_dbm": 20
-}
+memory = NodePath("Memory")
 network_manager = NodePath("NetworkManager")
 
-[node name="Coverage" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_ev5ms")
+[node name="Memory" type="Node" parent="."]
+script = ExtResource("2_uov47")
 
 [node name="NetworkManager" parent="." instance=ExtResource("2_pfsp5")]
 
@@ -42,3 +31,7 @@ theme_override_font_sizes/font_size = 0
 text = "RSU"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[connection signal="network_in_reach" from="NetworkManager/NetworkArea" to="." method="_on_network_area_network_in_reach"]
+
+[editable path="NetworkManager"]

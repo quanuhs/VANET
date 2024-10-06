@@ -1,12 +1,16 @@
 extends Tree
 
+
+func _ready() -> void:
+	create_item()
+
+
 func _on_multi_selected(item: TreeItem, column: int, selected: bool) -> void:
 	select_item(item, column, selected)
 
 func _on_gui_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_text_delete"):
 		remove_items()
-
 
 func remove_items():
 	var selected_item:= get_next_selected(null)

@@ -43,6 +43,7 @@ func build_paths():
 			create_path(point_id, connection)
 	
 	queue_redraw()
+	loader.disconnect("data_loaded", build_paths)
 
 
 func create_path(from_id, to_id):

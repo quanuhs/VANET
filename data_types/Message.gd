@@ -6,16 +6,16 @@ class_name Message
 var message_id: String
 var total_bits: int
 var payload: Dictionary
-var packets: Array = []
+var packets: Array[Packet] = []
 
-func _init(total_bits: int, payload: Dictionary, total_packets:int = 3):
-	self.message_id = _generate_message_id()
+func _init(message_id, total_bits: int, payload: Dictionary, total_packets:int = 3):
+	self.message_id = message_id
 	self.total_bits = total_bits
 	self.payload = payload
 	_packetize(total_packets)
 
 func _generate_message_id() -> String:
-	return "MSG_" + str(Time.get_unix_time_from_system())
+	return "MSG_"+str(randi()+randf())
 
 func _packetize(total_packets: int):
 	packets = []
@@ -31,3 +31,5 @@ func _packetize(total_packets: int):
 			""  # sender_id будет установлен при отправке
 		)
 		packets.append(packet)
+	
+	packets[-1].is_final = true

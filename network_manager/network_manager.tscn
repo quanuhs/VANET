@@ -1,11 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://cngpkopwmq681"]
+[gd_scene load_steps=4 format=3 uid="uid://cngpkopwmq681"]
 
-[ext_resource type="Script" path="res://vehicle/network_manager.gd" id="1_nwr8k"]
+[ext_resource type="Script" path="res://network_manager/network_manager.gd" id="1_nwr8k"]
 [ext_resource type="Script" path="res://network_manager/interference.gd" id="2_5f7ks"]
+[ext_resource type="PackedScene" uid="uid://cxpwswu4324r6" path="res://network_manager/network_area.tscn" id="2_jdn2k"]
 
-[node name="NetworkManager" type="Node2D" node_paths=PackedStringArray("interference")]
+[node name="NetworkManager" type="Node2D" node_paths=PackedStringArray("interference", "area")]
 script = ExtResource("1_nwr8k")
 interference = NodePath("Interference")
+area = NodePath("NetworkArea")
+
+[node name="NetworkArea" parent="." node_paths=PackedStringArray("network_manager") instance=ExtResource("2_jdn2k")]
+network_manager = NodePath("..")
 
 [node name="Interference" type="Node" parent="."]
 script = ExtResource("2_5f7ks")

@@ -29,14 +29,22 @@ func deselect():
 	
 
 func _ready() -> void:
-	place_handler.connect("element_placed", self.place)
+	place_handler.connect("element_placed", self.place_selected)
 	place_handler.connect("element_removed", self.remove)
+	_after_ready()
+	
+	
+func _after_ready():
+	pass
 
 
-func place(global_position: Vector2):
+func place_selected(global_position: Vector2):
 	if not selected:
 		return
-		
+	
+	place(global_position)
+
+func place(global_position: Vector2):
 	var _node = place_node.instantiate()
 	_node.name = node_name + str(len(placed)+1)
 	_node.global_position = global_position

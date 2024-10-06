@@ -9,6 +9,7 @@ var total_packets: int
 var payload: Dictionary
 var size_bits: int
 var sender_id: String
+var is_final: bool = false
 
 func _init(message_id: String, sequence_number: int, total_packets: int, payload: Dictionary, size_bits: int, sender_id: String):
 	self.message_id = message_id

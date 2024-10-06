@@ -74,6 +74,7 @@ func build_astar_graph():
 		
 		if not astar.are_points_connected(edge.to, edge.from):
 			astar.connect_points(edge.to, edge.from)
+	
 
 
 func find_path(start_id, goal_id):

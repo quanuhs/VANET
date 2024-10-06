@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://4q5bfx0t6tap"]
+
+[ext_resource type="Script" path="res://mobile_rsu/vehicle_rsu.gd" id="1_qsaub"]
+[ext_resource type="Script" path="res://vehicle/draw_vehicle.gd" id="2_cmh55"]
+[ext_resource type="Script" path="res://memory/memory.gd" id="2_triaw"]
+[ext_resource type="PackedScene" uid="uid://cngpkopwmq681" path="res://network_manager/network_manager.tscn" id="2_u6df0"]
+[ext_resource type="Texture2D" uid="uid://v0ei3odunfew" path="res://vehicle/vehicle.png" id="3_0sbm1"]
+
+[node name="VehicleRSU" type="PathFollow2D" node_paths=PackedStringArray("memory", "network_manager") groups=["vehicle_rsu"]]
+script = ExtResource("1_qsaub")
+memory = NodePath("Memory")
+network_manager = NodePath("NetworkManager")
+
+[node name="DrawPoint" type="Node2D" parent="." node_paths=PackedStringArray("vehicle", "icon")]
+script = ExtResource("2_cmh55")
+vehicle = NodePath("..")
+icon = NodePath("Icon")
+
+[node name="Icon" type="Sprite2D" parent="DrawPoint"]
+self_modulate = Color(0, 27.027, 100, 1)
+texture = ExtResource("3_0sbm1")
+
+[node name="NetworkManager" parent="." instance=ExtResource("2_u6df0")]
+
+[node name="Memory" type="Node" parent="."]
+script = ExtResource("2_triaw")
+
+[connection signal="reached_end_of_route" from="." to="." method="_on_reached_end_of_route"]
+[connection signal="message_received" from="NetworkManager" to="." method="_on_network_manager_message_received"]
+[connection signal="network_in_reach" from="NetworkManager/NetworkArea" to="." method="_on_network_area_network_in_reach"]
+[connection signal="network_lost_reach" from="NetworkManager/NetworkArea" to="." method="_on_network_area_network_lost_reach"]
+
+[editable path="NetworkManager"]

@@ -1,7 +1,7 @@
 extends Node2D
 
-@onready var vehicle: Vehicle = $".."
-@onready var icon: Sprite2D = $Icon
+@export var vehicle: PathFollow2D
+@export var icon: Sprite2D
 
 
 func _ready() -> void:

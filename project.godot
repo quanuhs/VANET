@@ -15,9 +15,20 @@ run/main_scene="res://main.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+CONFIG_GLOBAL="*res://config.gd"
+
 [display]
 
 window/subwindows/embed_subwindows=false
+
+[global_group]
+
+vehicle=""
+rsu=""
+mec=""
+vehicle_rsu=""
 
 [input]
 

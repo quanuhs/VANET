@@ -1,7 +1,10 @@
-extends Area2D
+extends Node2D
 class_name BasePlaceNetworkUnit
 
 enum {DEFAULT_COLOR, HOVER_COLOR}
+
+@export
+var network_manager: NetworkManager
 
 @export_category("Colors")
 @export_subgroup("Primary colors")
@@ -32,8 +35,6 @@ var CONFIG = {
 	"range_radius_m": 5000.0
 }
 
-@export 
-var network_manager: NetworkManager
 
 @onready
 var COLORS = {DEFAULT_COLOR: default_color, HOVER_COLOR: hover_color}
@@ -42,33 +43,37 @@ var COLORS = {DEFAULT_COLOR: default_color, HOVER_COLOR: hover_color}
 var RADIUS_COLORS = {DEFAULT_COLOR: radius_default_color, HOVER_COLOR: radius_hover_color}
 
 var COLOR_INDEX = DEFAULT_COLOR
+var line_color = Color(randf(), randf(), randf())
+
+func _physics_process(delta: float) -> void:
+	queue_redraw()
 
 
 func _ready():
 	set_process(true)
-	
-	var circle_shape = $Coverage.shape
+	_before_ready()
 	$Label.text = str(name)
-	circle_shape.radius = CONFIG["range_radius_m"]
+	
 	network_manager._init_(CONFIG["receiver_sensitivity_dbm"], 
 	CONFIG["transmit_power_dbm"], CONFIG["frequency"], 
 	CONFIG["noise_figure"], 
 	CONFIG["path_loss_exponent"])
+	
+	network_manager.set_radius(CONFIG["range_radius_m"])
 
 	_continue_ready()
+
+
+func _before_ready():
+	pass
 
 func _continue_ready():
 	pass
 	
 
 func _draw() -> void:
-	draw_circle(Vector2.ZERO, CONFIG["range_radius_m"], RADIUS_COLORS[COLOR_INDEX], false)
-	draw_circle(Vector2.ZERO, 15, COLORS[COLOR_INDEX])
-
-	# Визуализируем линии к транспортным средствам
-	for node in network_manager.connected_nodes:
-		draw_line(Vector2.ZERO, to_local(node.global_position), COLORS[COLOR_INDEX], line_size)
-		draw_circle(to_local(node.global_position), line_size/2, COLORS[COLOR_INDEX])
+	draw_circle(Vector2.ZERO, network_manager.radius, line_color, false)
+	draw_circle(Vector2.ZERO, 15, line_color)
 
 
 # ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ И ОТРИСОВКА

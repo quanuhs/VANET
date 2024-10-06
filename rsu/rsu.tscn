@@ -1,27 +1,28 @@
 [gd_scene load_steps=5 format=3 uid="uid://djh5ffwo83siv"]
 
 [ext_resource type="Script" path="res://rsu/rsu.gd" id="1_niju0"]
+[ext_resource type="Script" path="res://rsu/cluster.gd" id="2_2s4u3"]
 [ext_resource type="PackedScene" uid="uid://cngpkopwmq681" path="res://network_manager/network_manager.tscn" id="2_jrk0f"]
 [ext_resource type="Script" path="res://memory/memory.gd" id="3_dnllw"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ev5ms"]
-
-[node name="RSU" type="Area2D" node_paths=PackedStringArray("memory", "network_manager")]
+[node name="RSU" type="Node2D" node_paths=PackedStringArray("memory", "cluster", "network_manager") groups=["rsu"]]
 script = ExtResource("1_niju0")
 memory = NodePath("Memory")
-CONFIG = {
-"bandwidth": 1e+07,
-"frequency": 5.9e+09,
-"noise_figure": 9.0,
-"path_loss_exponent": 2.0,
-"range_radius_m": 500.0,
-"receiver_sensitivity_dbm": -85.0,
-"transmit_power_dbm": 20
-}
+cluster = NodePath("Cluster")
 network_manager = NodePath("NetworkManager")
+CONFIG = {
+"bandwidth": 100000.0,
+"frequency": 5.9e+09,
+"noise_figure": 5.0,
+"path_loss_exponent": 1.0,
+"range_radius_m": 500.0,
+"receiver_sensitivity_dbm": -90.0,
+"transmit_power_dbm": 25
+}
 
-[node name="Coverage" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_ev5ms")
+[node name="Cluster" type="Node" parent="." node_paths=PackedStringArray("network_manager")]
+script = ExtResource("2_2s4u3")
+network_manager = NodePath("../NetworkManager")
 
 [node name="Memory" type="Node" parent="."]
 script = ExtResource("3_dnllw")
@@ -48,3 +49,7 @@ vertical_alignment = 1
 
 [connection signal="vehicle_entered_range" from="." to="." method="_on_vehicle_entered_range"]
 [connection signal="vehicle_exited_range" from="." to="." method="_on_vehicle_exited_range"]
+[connection signal="network_in_reach" from="NetworkManager/NetworkArea" to="." method="_on_network_area_network_in_reach"]
+[connection signal="network_lost_reach" from="NetworkManager/NetworkArea" to="." method="_on_network_area_network_lost_reach"]
+
+[editable path="NetworkManager"]

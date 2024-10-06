@@ -1,18 +1,22 @@
-[gd_scene load_steps=14 format=3 uid="uid://dpw0hwl3tngwc"]
+[gd_scene load_steps=18 format=3 uid="uid://dpw0hwl3tngwc"]
 
 [ext_resource type="Script" path="res://utils/file_loader.gd" id="1_adnqh"]
+[ext_resource type="Script" path="res://main_menu.gd" id="1_igyqf"]
 [ext_resource type="Script" path="res://utils/tree.gd" id="2_0h3he"]
 [ext_resource type="Script" path="res://utils/button_change_placement.gd" id="2_t1ks8"]
 [ext_resource type="Script" path="res://Camera.gd" id="3_6e1bq"]
 [ext_resource type="Script" path="res://utils/placer_handler.gd" id="4_1home"]
 [ext_resource type="Script" path="res://placements/default_place_element.gd" id="5_lkoi4"]
 [ext_resource type="PackedScene" uid="uid://djh5ffwo83siv" path="res://rsu/rsu.tscn" id="6_ymcxy"]
+[ext_resource type="Script" path="res://placements/place_rsu.gd" id="7_hc1mh"]
 [ext_resource type="Script" path="res://utils/DataParser.gd" id="7_iilt5"]
 [ext_resource type="PackedScene" uid="uid://owyhxge8mkhf" path="res://mec/mec.tscn" id="8_qn4iv"]
 [ext_resource type="Script" path="res://utils/Loader.gd" id="8_r6qou"]
 [ext_resource type="Script" path="res://utils/Builder.gd" id="9_jdhl6"]
 [ext_resource type="Script" path="res://utils/VehicleSpawner.gd" id="10_oo55w"]
 [ext_resource type="PackedScene" uid="uid://cg3e2541gyl6l" path="res://vehicle/vehicle.tscn" id="11_deyfs"]
+[ext_resource type="PackedScene" uid="uid://4q5bfx0t6tap" path="res://mobile_rsu/vehicle_rsu.tscn" id="15_cyros"]
+[ext_resource type="Script" path="res://mobile_rsu/m_rsu_dispatch.gd" id="16_achw4"]
 
 [node name="Main" type="Control"]
 layout_mode = 3
@@ -31,6 +35,10 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+script = ExtResource("1_igyqf")
+
+[node name="Timer" type="Timer" parent="MainMenu"]
+wait_time = 2.0
 
 [node name="FileLoader" type="Control" parent="MainMenu"]
 layout_mode = 1
@@ -70,8 +78,11 @@ layout_mode = 2
 text = "Выбрать папку"
 
 [node name="AfterLoadContainer" type="HBoxContainer" parent="MainMenu/Panel/Panel/HBoxContainer"]
-visible = false
 layout_mode = 2
+
+[node name="ButtonSave" type="Button" parent="MainMenu/Panel/Panel/HBoxContainer/AfterLoadContainer"]
+layout_mode = 2
+text = "Сохранить"
 
 [node name="ButtonChangePlacement" type="OptionButton" parent="MainMenu/Panel/Panel/HBoxContainer/AfterLoadContainer" node_paths=PackedStringArray("place_handler")]
 custom_minimum_size = Vector2(170, 0)
@@ -83,9 +94,18 @@ popup/item_0/text = "Выбрать объект"
 script = ExtResource("2_t1ks8")
 place_handler = NodePath("../../../../../../Window/World/PlacerHandler")
 
+[node name="ButtonMap" type="Button" parent="MainMenu/Panel/Panel/HBoxContainer/AfterLoadContainer"]
+layout_mode = 2
+text = "Показать карту"
+
 [node name="ButtonStart" type="Button" parent="MainMenu/Panel/Panel/HBoxContainer/AfterLoadContainer"]
 layout_mode = 2
 text = "Запустить"
+
+[node name="ButtonStop" type="Button" parent="MainMenu/Panel/Panel/HBoxContainer/AfterLoadContainer"]
+visible = false
+layout_mode = 2
+text = "Остановить"
 
 [node name="MarginContainer" type="MarginContainer" parent="MainMenu/Panel"]
 layout_mode = 1
@@ -118,13 +138,16 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Tree" type="Tree" parent="MainMenu/Panel/MarginContainer/HBoxContainer/VBoxContainer/Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="MainMenu/Panel/MarginContainer/HBoxContainer/VBoxContainer/Panel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Tree" type="Tree" parent="MainMenu/Panel/MarginContainer/HBoxContainer/VBoxContainer/Panel/MarginContainer"]
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 allow_reselect = true
@@ -147,6 +170,49 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_vertical = 3
 
+[node name="MarginContainer" type="MarginContainer" parent="MainMenu/Panel/MarginContainer/HBoxContainer/VBoxContainer2/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenu/Panel/MarginContainer/HBoxContainer/VBoxContainer2/Panel/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MainMenu/Panel/MarginContainer/HBoxContainer/VBoxContainer2/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Label1" type="Label" parent="MainMenu/Panel/MarginContainer/HBoxContainer/VBoxContainer2/Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Вероятность потерь: "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="MainMenu/Panel/MarginContainer/HBoxContainer/VBoxContainer2/Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "___"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label3" type="Label" parent="MainMenu/Panel/MarginContainer/HBoxContainer/VBoxContainer2/Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "%"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MainMenu/Panel/MarginContainer/HBoxContainer/VBoxContainer2/Panel/MarginContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+text = "Загрузите settings.json"
+
 [node name="Window" type="Window" parent="."]
 disable_3d = true
 title = "MAP"
@@ -166,9 +232,9 @@ script = ExtResource("3_6e1bq")
 script = ExtResource("4_1home")
 
 [node name="PlaceRSU" type="Node" parent="Window/World/PlacerHandler" node_paths=PackedStringArray("place_handler", "tree", "placement_node")]
-script = ExtResource("5_lkoi4")
+script = ExtResource("7_hc1mh")
 place_handler = NodePath("..")
-tree = NodePath("../../../../MainMenu/Panel/MarginContainer/HBoxContainer/VBoxContainer/Panel/Tree")
+tree = NodePath("../../../../MainMenu/Panel/MarginContainer/HBoxContainer/VBoxContainer/Panel/MarginContainer/Tree")
 node_name = "RSU"
 placement_node = NodePath("../../RSUs")
 place_node = ExtResource("6_ymcxy")
@@ -176,7 +242,7 @@ place_node = ExtResource("6_ymcxy")
 [node name="PlaceMEC" type="Node" parent="Window/World/PlacerHandler" node_paths=PackedStringArray("place_handler", "tree", "placement_node")]
 script = ExtResource("5_lkoi4")
 place_handler = NodePath("..")
-tree = NodePath("../../../../MainMenu/Panel/MarginContainer/HBoxContainer/VBoxContainer/Panel/Tree")
+tree = NodePath("../../../../MainMenu/Panel/MarginContainer/HBoxContainer/VBoxContainer/Panel/MarginContainer/Tree")
 node_name = "MEC"
 placement_node = NodePath("../../MECs")
 place_node = ExtResource("8_qn4iv")
@@ -204,12 +270,19 @@ script = ExtResource("10_oo55w")
 builder = NodePath("../Builder")
 loader = NodePath("../Loader")
 vehicle_scene = ExtResource("11_deyfs")
+vehicle_rsu_scene = ExtResource("15_cyros")
 
 [node name="RSUs" type="Node2D" parent="Window/World"]
 
 [node name="MECs" type="Node2D" parent="Window/World"]
 
 [node name="Roads" type="Node2D" parent="Window/World"]
+
+[node name="mRSU_dispatch" type="Node2D" parent="Window/World"]
+script = ExtResource("16_achw4")
+
+[node name="Timer" type="Timer" parent="Window/World/mRSU_dispatch"]
+wait_time = 3.0
 
 [node name="FileDialog" type="FileDialog" parent="."]
 title = "Open a Directory"
@@ -223,9 +296,16 @@ filters = PackedStringArray("*")
 show_hidden_files = true
 use_native_dialog = true
 
+[connection signal="timeout" from="MainMenu/Timer" to="MainMenu" method="_on_timer_timeout"]
 [connection signal="pressed" from="MainMenu/Panel/Panel/HBoxContainer/ButtonLoad" to="MainMenu/FileLoader" method="_on_button_load_pressed"]
+[connection signal="pressed" from="MainMenu/Panel/Panel/HBoxContainer/AfterLoadContainer/ButtonSave" to="MainMenu" method="_on_button_save_pressed"]
 [connection signal="item_selected" from="MainMenu/Panel/Panel/HBoxContainer/AfterLoadContainer/ButtonChangePlacement" to="MainMenu/Panel/Panel/HBoxContainer/AfterLoadContainer/ButtonChangePlacement" method="_on_item_selected"]
+[connection signal="pressed" from="MainMenu/Panel/Panel/HBoxContainer/AfterLoadContainer/ButtonMap" to="MainMenu/FileLoader" method="_on_button_map_pressed"]
+[connection signal="pressed" from="MainMenu/Panel/Panel/HBoxContainer/AfterLoadContainer/ButtonStart" to="MainMenu" method="_on_button_start_pressed"]
 [connection signal="pressed" from="MainMenu/Panel/Panel/HBoxContainer/AfterLoadContainer/ButtonStart" to="Window/World/Logic/VehicleSpawner" method="test_spawn"]
-[connection signal="gui_input" from="MainMenu/Panel/MarginContainer/HBoxContainer/VBoxContainer/Panel/Tree" to="MainMenu/Panel/MarginContainer/HBoxContainer/VBoxContainer/Panel/Tree" method="_on_gui_input"]
-[connection signal="multi_selected" from="MainMenu/Panel/MarginContainer/HBoxContainer/VBoxContainer/Panel/Tree" to="MainMenu/Panel/MarginContainer/HBoxContainer/VBoxContainer/Panel/Tree" method="_on_multi_selected"]
+[connection signal="pressed" from="MainMenu/Panel/Panel/HBoxContainer/AfterLoadContainer/ButtonStop" to="MainMenu" method="_on_button_stop_pressed"]
+[connection signal="gui_input" from="MainMenu/Panel/MarginContainer/HBoxContainer/VBoxContainer/Panel/MarginContainer/Tree" to="MainMenu/Panel/MarginContainer/HBoxContainer/VBoxContainer/Panel/MarginContainer/Tree" method="_on_gui_input"]
+[connection signal="multi_selected" from="MainMenu/Panel/MarginContainer/HBoxContainer/VBoxContainer/Panel/MarginContainer/Tree" to="MainMenu/Panel/MarginContainer/HBoxContainer/VBoxContainer/Panel/MarginContainer/Tree" method="_on_multi_selected"]
+[connection signal="timeout" from="Window/World/mRSU_dispatch/Timer" to="Window/World/mRSU_dispatch" method="_on_timer_timeout"]
+[connection signal="dir_selected" from="FileDialog" to="MainMenu" method="_on_file_dialog_dir_selected"]
 [connection signal="dir_selected" from="FileDialog" to="MainMenu/FileLoader" method="_on_file_dialog_dir_selected"]

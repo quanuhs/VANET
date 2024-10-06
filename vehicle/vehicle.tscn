@@ -6,38 +6,46 @@
 [ext_resource type="PackedScene" uid="uid://cngpkopwmq681" path="res://network_manager/network_manager.tscn" id="4_1ul2u"]
 [ext_resource type="Script" path="res://vehicle/logic.gd" id="5_65xuc"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_1pl0v"]
-radius = 50.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_lhtmy"]
+resource_local_to_scene = true
 
-[node name="Vehicle" type="PathFollow2D" node_paths=PackedStringArray("network_manager", "logic")]
+[node name="Vehicle" type="PathFollow2D" node_paths=PackedStringArray("logic", "network_manager") groups=["vehicle"]]
 cubic_interp = false
 loop = false
 script = ExtResource("1_co57n")
-network_manager = NodePath("NetworkManager")
 logic = NodePath("NetworkManager/Logic")
+network_manager = NodePath("NetworkManager")
 
-[node name="DrawPoint" type="Node2D" parent="."]
+[node name="DrawPoint" type="Node2D" parent="." node_paths=PackedStringArray("vehicle", "icon")]
 script = ExtResource("3_a7w8p")
+vehicle = NodePath("..")
+icon = NodePath("Icon")
 
 [node name="Icon" type="Sprite2D" parent="DrawPoint"]
 texture = ExtResource("2_y00bp")
 
-[node name="Area2D" type="Area2D" parent="."]
-monitoring = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0.5, -2.5)
-shape = SubResource("CircleShape2D_1pl0v")
-
 [node name="NetworkManager" parent="." instance=ExtResource("4_1ul2u")]
 
-[node name="Logic" type="Node" parent="NetworkManager"]
+[node name="CollisionShape2D" parent="NetworkManager/NetworkArea" index="0"]
+shape = SubResource("CircleShape2D_lhtmy")
+
+[node name="Logic" type="Node" parent="NetworkManager" node_paths=PackedStringArray("vehicle", "network_manager")]
 script = ExtResource("5_65xuc")
+vehicle = NodePath("../..")
+network_manager = NodePath("..")
+
+[node name="Timer" type="Timer" parent="NetworkManager/Logic"]
 
 [node name="_Timer_87719" type="Timer" parent="."]
 wait_time = 0.2
 one_shot = true
 
 [connection signal="accident" from="." to="NetworkManager/Logic" method="_on_vehicle_accident"]
+[connection signal="reached_end_of_route" from="." to="NetworkManager/Logic" method="_on_vehicle_reached_end_of_route"]
 [connection signal="message_received" from="NetworkManager" to="NetworkManager/Logic" method="_on_signal_handler_message_recived"]
-[connection signal="change_route" from="NetworkManager/Logic" to="." method="_on_logic_change_route"]
+[connection signal="network_in_reach" from="NetworkManager/NetworkArea" to="NetworkManager/Logic" method="_on_network_area_network_in_reach"]
+[connection signal="network_lost_reach" from="NetworkManager/NetworkArea" to="NetworkManager/Logic" method="_on_network_area_network_lost_reach"]
+[connection signal="timeout" from="NetworkManager/Logic/Timer" to="NetworkManager/Logic" method="_on_timer_timeout"]
+
+[editable path="NetworkManager"]
+[editable path="NetworkManager/NetworkArea"]

@@ -1,3 +1,48 @@
+# ENGLISH
+Archive: https://github.com/quanuhs/VANET-old
+
+# VANET ⚙️[IN DEVELOPMENT]⚙️
+A system for simulating VANET, written in Godot.
+
+**NOTE: THE README DESCRIPTION MAY BE UPDATED**
+
+# Description
+This project represents a VANET (Vehicular Ad-hoc Network) simulation system using the Godot game engine and GDScript language. The goal of the project is to simulate the behavior and interaction of vehicles equipped with onboard units (OBU) and roadside infrastructure (RSU) in a virtual environment. The simulation allows for testing various scenarios, such as accident simulation, traffic movement, and data exchange between network elements.
+
+# Overview
+The VANET simulation system was developed to study the interaction between vehicles and roadside infrastructure in a controlled environment. It enables analysis of data exchange, traffic management, and VANET network behavior under different conditions.
+* Graph-based road network: Uses data from OpenStreetMap (OSM) to create realistic road maps;
+* Vehicle simulation (OBU): Vehicles are equipped with onboard devices that interact with RSUs and follow predefined routes;
+* Roadside units (RSU): Stationary infrastructure elements that exchange data with vehicles, other RSUs, and MEC;
+* Support for various scenarios: Implementation of two primary scenarios for accident simulation and random traffic movement;
+* Real-time data exchange: Simulation of message and data transmission between network elements.
+
+# Technologies used
+Godot Engine 4.0+ (GdScript)
+Python with the osmnx library
+
+# Current functionality
+0. File generation. Install the osmnx library, modify the Python code to select the required location, and run the script. 
+As output, you will get files describing the graph: "nodes.csv" and "edges.csv". For convenience, these files are also located in the "data" folder.
+1. Loading the map. Choose the directory where the files from step 1 are located. **Important:** The directory must have files named "nodes.csv" and "edges.csv".
+2. Placing elements. Once the map is loaded, an additional window will open where RSUs and MECs can be placed.
+3. Scenario preparation. To prepare a scenario, modify the function in the VehicleSpawner.gd code (test_spawn) and describe the executable scenario, similar to "reroute_platoon()".
+4. Running the scenario. Click the "Run" button in the interface of the compiled program.
+
+# Interface and images
+![User Interface](https://github.com/user-attachments/assets/1649118e-86c2-4538-bb4d-185dcbe2dd5b)
+![Simulation (map) zoom-out](https://github.com/user-attachments/assets/cce73744-e5f1-4687-81b6-e39773452307)
+![Simulation (map) zoom-in](https://github.com/user-attachments/assets/b73f5a68-2082-4421-89e8-4cdbeb289b61)
+
+# From the author
+With the project source files, the system can be extended and shaped to suit your modeling needs. At this stage, the system is under active development. Some order in file organization, code readability improvements, and more complex functionality will be added later.
+I've tried to write fairly flexible modules to make modifications easier, but nothing is perfect—work is in progress!
+
+---
+---
+---
+
+# RUSSIAN
 Архив: https://github.com/quanuhs/VANET-old
 
 # VANET ⚙️[В РАЗРАБОТКЕ]⚙️

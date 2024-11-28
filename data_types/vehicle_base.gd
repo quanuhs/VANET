@@ -59,10 +59,9 @@ signal vehicle_progressed(progress: float)
 func _ready() -> void:
 	CONFIG = CONFIG_GLOBAL.CONFIG.get("vehicle", CONFIG)
 	
-	network_manager._init_(CONFIG["receiver_sensitivity_dbm"], 
+	network_manager.setup(CONFIG["receiver_sensitivity_dbm"], 
 	CONFIG["transmit_power_dbm"], CONFIG["frequency"], 
-	CONFIG["noise_figure"], 
-	CONFIG["path_loss_exponent"])
+	CONFIG["noise_figure"])
 
 	
 	
@@ -70,7 +69,8 @@ func _ready() -> void:
 	allowed_distance_to_next = CONFIG["allowed_distance_to_next"]
 	vehicle_length = CONFIG["vehicle_length"]
 	
-	network_manager.set_radius(CONFIG["range_radius_m"])
+	if CONFIG.get("range_radius_m"):
+		network_manager.set_radius(CONFIG["range_radius_m"])
 	#reached_end_of_route.connect(_on_reached_end_of_route)
 	
 	after_ready()

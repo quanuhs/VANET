@@ -1,16 +1,32 @@
-[gd_scene load_steps=4 format=3 uid="uid://cngpkopwmq681"]
+[gd_scene load_steps=6 format=3 uid="uid://cngpkopwmq681"]
 
 [ext_resource type="Script" path="res://network_manager/network_manager.gd" id="1_nwr8k"]
 [ext_resource type="Script" path="res://network_manager/interference.gd" id="2_5f7ks"]
 [ext_resource type="PackedScene" uid="uid://cxpwswu4324r6" path="res://network_manager/network_area.tscn" id="2_jdn2k"]
+[ext_resource type="Script" path="res://network_manager/device_area.gd" id="4_idxhx"]
 
-[node name="NetworkManager" type="Node2D" node_paths=PackedStringArray("interference", "area")]
+[sub_resource type="CircleShape2D" id="CircleShape2D_44rgq"]
+radius = 1.0
+
+[node name="NetworkManager" type="Node2D" node_paths=PackedStringArray("interference", "area", "device_area")]
 script = ExtResource("1_nwr8k")
 interference = NodePath("Interference")
 area = NodePath("NetworkArea")
+device_area = NodePath("DeviceArea")
 
 [node name="NetworkArea" parent="." node_paths=PackedStringArray("network_manager") instance=ExtResource("2_jdn2k")]
 network_manager = NodePath("..")
 
 [node name="Interference" type="Node" parent="."]
 script = ExtResource("2_5f7ks")
+
+[node name="DeviceArea" type="Area2D" parent="." node_paths=PackedStringArray("network_manager", "shape")]
+collision_layer = 8
+collision_mask = 8
+monitoring = false
+script = ExtResource("4_idxhx")
+network_manager = NodePath("..")
+shape = NodePath("CollisionShape2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DeviceArea"]
+shape = SubResource("CircleShape2D_44rgq")

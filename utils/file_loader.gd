@@ -41,6 +41,17 @@ func load_placements(dir: String):
 			if rsu.get("position"):
 				place_rsu.place(str_to_var("Vector2"+rsu.get("position")))
 	
+	#place_rsu.placed = []
+	#var counter = 0
+	#for id in loader.data_parser.nodes:
+		#counter += 1
+		#if randi_range(10, 20) <= counter:
+		##if counter == 20:
+			#var pos = loader.data_parser.nodes[id].position
+			#place_rsu.place(pos)
+			#counter = 0
+			#continue
+	
 	if mecs:
 		for mec in mecs:
 			if mec.get("position"):

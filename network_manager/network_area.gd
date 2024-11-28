@@ -32,6 +32,9 @@ func remove_disconnected(areas):
 		for area in areas:
 			var _new_node = area.network_manager
 			
+			if _new_node == network_manager:
+				continue
+			
 			if _new_node == node:
 				found = true
 				break

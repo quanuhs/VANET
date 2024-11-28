@@ -11,6 +11,7 @@ var initial_end = null
 
 func after_ready():
 	line_color = Color.TURQUOISE
+	network_manager.change_radius_to_real()
 
 func _process(delta: float) -> void:
 	if connected_rsu == null and network_manager.has_connection_with_group("RSU"):
@@ -59,16 +60,17 @@ func try_connecting_to_rsu(node: RSU):
 
 
 func _on_network_area_network_in_reach(other_network_manager: NetworkManager) -> void:
-	if other_network_manager.get_parent() is Vehicle:
+	if other_network_manager.get_parent() is Vehicle and network_manager.has_connection_with_group("RSU"):
+		#print(name)
 		network_manager.send_message(other_network_manager.get_parent(), 
-		Message.new(Message.generate_scene_unique_id(), 10, {"CONNECTED_TO_RSU": true, "amount": network_manager.count_in_group("vehicle")}, 1))
+		Message.new(Message.generate_scene_unique_id(), 10, {"CONNECTED_TO_RSU": true, "amount": network_manager.count_in_group("vehicle")}, 1), false)
 
 
 func _on_network_area_network_lost_reach(other_network_manager: NetworkManager) -> void:
 	if other_network_manager.get_parent() is Vehicle:
 		var vehicle = other_network_manager.get_parent()
 		network_manager.send_message(vehicle, 
-		Message.new(Message.generate_scene_unique_id(), 10, {"DISCONNECT_ME": true}, 1))
+		Message.new(Message.generate_scene_unique_id(), 10, {"DISCONNECT_ME": true}, 1), false)
 		vehicle.network_manager.disconnect_node(network_manager)
 		network_manager.disconnect_node(vehicle.network_manager)
 

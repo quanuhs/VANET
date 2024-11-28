@@ -68,11 +68,18 @@ func reroute_platoon():
 	var end_node = 500
 	
 	for j in range(1):
-		for i in range(3):
+		for i in range(9):
 			await get_tree().create_timer(1).timeout
 			
 			var vehicle = spawn_vehicle(start_node, end_node)
-			var ask = [[wait, [5]], [vehicle.logic.ask_data, [300, CONFIG_GLOBAL.CONFIG.get("query_seconds", 1)]]]
+			var ask = [[wait, [randi_range(10, 120)]], [vehicle.logic.ask_data, [300, CONFIG_GLOBAL.CONFIG.get("query_seconds", 5)]]]
+			
+			var test = [[wait, [randi_range(10, 120)]], vehicle.stop, vehicle._on_accident, [wait, [randi_range(5, 10)] ], vehicle._on_no_accident, vehicle.start]
+				
+			for s in range(10):
+				test += [[wait, [randi_range(10, 120)]], vehicle.stop, vehicle._on_accident, [wait, [randi_range(5, 10)] ], vehicle._on_no_accident, vehicle.start]
+				
+			sequence_call(test)
 
 			#if (i+j+1) % 3 == 0:
 				#var test = [[wait, [randi_range(10, 120)]], vehicle.stop, vehicle._on_accident, [wait, [randi_range(5, 10)] ], vehicle._on_no_accident, vehicle.start]
@@ -97,12 +104,16 @@ func reroute_chaos():
 	var start_node = 1
 	var end_node = 500
 	
-	for j in range(10):
-		for i in range(25):
+	var amount = 25
+	var groups = 10
+	
+	for j in range(groups):
+		for i in range(amount):
 			await get_tree().physics_frame
 			start_node = randi_range(1, loader.astar.get_point_count())
 			end_node = randi_range(1, loader.astar.get_point_count())
 			var vehicle = spawn_vehicle(start_node, end_node)
+			vehicle.name = "Vehicle" + str(j*amount+i+1) + "#"
 			
 			
 			var ask = [[wait, [5]], [vehicle.logic.ask_data, [300, CONFIG_GLOBAL.CONFIG.get("query_seconds", 1)]]]

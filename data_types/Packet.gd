@@ -18,3 +18,6 @@ func _init(message_id: String, sequence_number: int, total_packets: int, payload
 	self.payload = payload
 	self.size_bits = size_bits
 	self.sender_id = sender_id
+
+func _to_string() -> String:
+	return "%s %s %s" % [self.message_id, self.sequence_number, self.is_final]

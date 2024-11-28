@@ -54,12 +54,13 @@ func _ready():
 	_before_ready()
 	$Label.text = str(name)
 	
-	network_manager._init_(CONFIG["receiver_sensitivity_dbm"], 
+	network_manager.setup(CONFIG["receiver_sensitivity_dbm"], 
 	CONFIG["transmit_power_dbm"], CONFIG["frequency"], 
-	CONFIG["noise_figure"], 
-	CONFIG["path_loss_exponent"])
+	CONFIG["noise_figure"])
 	
-	network_manager.set_radius(CONFIG["range_radius_m"])
+	if CONFIG.get('range_radius_m'):
+		network_manager.set_radius(CONFIG["range_radius_m"])
+	
 
 	_continue_ready()
 

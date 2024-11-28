@@ -35,6 +35,7 @@ vehicle = NodePath("../..")
 network_manager = NodePath("..")
 
 [node name="Timer" type="Timer" parent="NetworkManager/Logic"]
+one_shot = true
 
 [node name="_Timer_87719" type="Timer" parent="."]
 wait_time = 0.2

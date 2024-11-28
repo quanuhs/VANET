@@ -2,9 +2,9 @@ extends Node2D
 class_name NetworkManager
 
 # Константы
-const RETRY_LIMIT = 3  # Максимальное количество попыток повторной отправки сообщения
+const RETRY_LIMIT = 2  # Максимальное количество попыток повторной отправки сообщения
 const FINAL_PACKET_TIMEOUT = 10.0  # Максимальное время ожидания финального пакета в секундах
-const ACK_TIMEOUT = 5.0  # Время ожидания подтверждения (ACK) для сообщения в секундах
+const ACK_TIMEOUT = 20.0  # Время ожидания подтверждения (ACK) для сообщения в секундах
 
 const ACK_SIZE = 10 # бит
 
@@ -36,6 +36,9 @@ var radius: float = 1.0
 var area: NetworkArea
 
 @export
+var device_area: DeviceArea
+
+@export
 var use_tcp: bool = true  # Переключатель для работы в режимах TCP (true) или UDP (false)
 
 var connected_nodes = {}  # Словарь для хранения подключенных узлов и их скоростей передачи
@@ -46,12 +49,21 @@ var retry_counts = {}  # Количество попыток повторной 
 var final_packet_times = {}  # Время последнего принятого пакета для каждого сообщения
 var groups = {}
 
-func _init_(receiver_sensitivity_dbm, transmit_power_dbm, frequency, noise_figure, path_loss_exponent) -> void:
+func _init_(receiver_sensitivity_dbm, transmit_power_dbm, frequency, noise_figure) -> void:
 	self.receiver_sensitivity_dbm = receiver_sensitivity_dbm
 	self.transmit_power_dbm = transmit_power_dbm
 	self.frequency = frequency
 	self.noise_figure = noise_figure
-	self.path_loss_exponent = path_loss_exponent
+	
+
+func setup(receiver_sensitivity_dbm, transmit_power_dbm, frequency, noise_figure) -> void:
+	self.receiver_sensitivity_dbm = receiver_sensitivity_dbm
+	self.transmit_power_dbm = transmit_power_dbm
+	self.frequency = frequency
+	self.noise_figure = noise_figure
+	
+	change_radius_to_real()
+
 
 func _draw() -> void:
 	# Визуализируем сетевые подключения
@@ -62,12 +74,21 @@ func _draw() -> void:
 		
 		draw_line(Vector2.ZERO, to_local(node.global_position)/2, connected_nodes[node].get("color", get_parent().line_color), get_parent().line_size)
 
-func _ready() -> void:
+
+func change_radius_to_real():
+	var radi = interference.calculate_coverage_radius(self.transmit_power_dbm, self.receiver_sensitivity_dbm, self.frequency, false, 0)
 	collision_shape_2d.shape.radius = self.radius
+	print(radi, " ", self.frequency)
+	set_radius(radi)
+	
 
 func set_radius(radius: float):
 	self.radius = radius
 	collision_shape_2d.shape.radius = self.radius
+
+func set_device_radius(radius: float):
+	device_area.set_radius(radius)
+	
 
 #func handle_packet_queue():
 func handle_packet_queue():
@@ -177,7 +198,7 @@ func send_message_in_group(group_name: String, message: Message) -> void:
 	for to_network_manager in groups.get(group_name):
 		await send_message(to_network_manager.get_parent(), message)
 
-func send_message(to_node: Node, message: Message) -> void:
+func send_message(to_node: Node, message: Message, tcp: bool = use_tcp) -> void:
 	if to_node == null or message == null:
 		return
 	
@@ -186,8 +207,10 @@ func send_message(to_node: Node, message: Message) -> void:
 	
 	var transmission_speed = get_parent().CONFIG.get("bandwidth", 10e3)
 	
-	if is_network_manager_connected(to_network_manager):
-		transmission_speed = connected_nodes[to_network_manager].transmission_speed
+	if not is_network_manager_connected(to_network_manager):
+		return
+		
+	transmission_speed = connected_nodes[to_network_manager].transmission_speed
 
 	#print_debug("%s is starting to send message %s to %s (%s)" % [from_node.name, message.message_id, to_node.name, message.payload])
 
@@ -198,7 +221,7 @@ func send_message(to_node: Node, message: Message) -> void:
 
 		send_packet(to_network_manager, packet, transmission_speed)
 	
-	if use_tcp:
+	if tcp:
 		# Добавляем сообщение в pending_acks после отправки всех пакетов
 		#print(get_parent(), " ", len(pending_acks))
 		
@@ -223,10 +246,11 @@ func _deliver_packet(packet_info: Dictionary):
 func is_packet_lost(to_node: Node, from_node: Node, packet: Packet):
 	# Рассчитываем уровень полученной мощности сигнала
 	var node_network = from_node.network_manager
-	var distance = global_position.distance_to(from_node.global_position)
-	var received_power_dbm = interference.calculate_received_power(distance, node_network.transmit_power_dbm, node_network.frequency, 
-													(node_network.noise_figure + noise_figure)/2, node_network.path_loss_exponent)
-
+	var distance = global_position.distance_to(from_node.global_position) - 5
+	#var my_power_dbm = interference.calculate_received_power(distance, self.transmit_power_dbm, self.frequency, self.noise_figure)
+	
+	var received_power_dbm = interference.calculate_received_power(distance, node_network.transmit_power_dbm, node_network.frequency, node_network.noise_figure)
+													
 	#print(distance, " ", transmit_power_dbm,  " ", frequency, " ",  noise_figure, " ",  path_loss_exponent)
 	#print_debug("Calculated received power at %s: %f dBm" % [to_node.name, received_power_dbm])
 
@@ -239,6 +263,7 @@ func is_packet_lost(to_node: Node, from_node: Node, packet: Packet):
 
 func _handle_received_packet(from_node: Node, packet: Packet) -> void:
 	var message_id = packet.message_id
+	
 	if message_id not in received_packets:
 		received_packets[message_id] = []
 
@@ -255,7 +280,7 @@ func _handle_received_packet(from_node: Node, packet: Packet) -> void:
 			send_ack(from_node, message.message_id)
 		
 		# Очищаем данные о пакетах
-		received_packets.erase(message_id)
+		clear_message(message.message_id)
 		
 
 func send_ack(to_node: Node, message_id: String) -> void:
@@ -341,8 +366,12 @@ func receive_packet(to_node: Node, from_node: Node, packet: Packet) -> void:
 			return
 
 func _drop_message(message_id: String, reason: String):
-	#print_debug("Message %s dropped due to: %s" % [message_id, reason])
+	#print_debug("%s] Message %s dropped due to: %s" % [get_parent().name, message_id, reason])
+	
 	emit_signal("message_dropped", message_id, reason)
+	clear_message(message_id)
+
+func clear_message(message_id: String):
 	if message_id in received_packets:
 		#for packet in received_packets.get(message_id, []):
 			#retry_counts.erase(packet.sequence_number)
@@ -358,6 +387,7 @@ func _drop_message(message_id: String, reason: String):
 		retry_counts.erase(message_id)
 	if message_id in pending_acks:
 		pending_acks.erase(message_id)
+
 
 func _recive_ack(to_node: Node, from_node: Node, packet: Packet):
 	#print_debug("Received ACK for message %s from %s to %s" % [packet.message_id, from_node.name, to_node.name])

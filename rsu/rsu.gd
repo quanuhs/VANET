@@ -101,10 +101,10 @@ func count_active():
 	return counter
 
 func _on_vehicle_entered_range(vehicle: VehicleBase) -> void:
-	network_manager.send_message(vehicle, Message.new(Message.generate_scene_unique_id(), 10, {"CONNECTED_TO_RSU": true, "amount": network_manager.count_in_group("vehicle")}, 1))
+	network_manager.send_message(vehicle, Message.new(Message.generate_scene_unique_id(), 10, {"CONNECTED_TO_RSU": true, "amount": network_manager.count_in_group("vehicle")}, 1), false)
 
 func _on_vehicle_exited_range(vehicle: VehicleBase) -> void:
-	network_manager.send_message(vehicle, Message.new(Message.generate_scene_unique_id(), 10, {"DISCONNECT_ME": true}, 1))
+	network_manager.send_message(vehicle, Message.new(Message.generate_scene_unique_id(), 10, {"DISCONNECT_ME": true}, 1), false)
 	vehicle.network_manager.disconnect_node(network_manager)
 	network_manager.disconnect_node(vehicle.network_manager)
 

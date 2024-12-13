@@ -1,7 +1,7 @@
 # ENGLISH
 Archive: https://github.com/quanuhs/VANET-old
 
-# VANET ⚙️[IN DEVELOPMENT]⚙️
+# VANET
 A system for simulating VANET, written in Godot.
 
 **NOTE: THE README DESCRIPTION MAY BE UPDATED**
@@ -34,9 +34,10 @@ As output, you will get files describing the graph: "nodes.csv" and "edges.csv".
 ![Simulation (map) zoom-out](https://github.com/user-attachments/assets/cce73744-e5f1-4687-81b6-e39773452307)
 ![Simulation (map) zoom-in](https://github.com/user-attachments/assets/b73f5a68-2082-4421-89e8-4cdbeb289b61)
 
-# From the author
-With the project source files, the system can be extended and shaped to suit your modeling needs. At this stage, the system is under active development. Some order in file organization, code readability improvements, and more complex functionality will be added later.
-I've tried to write fairly flexible modules to make modifications easier, but nothing is perfect—work is in progress!
+Research funded by Russian Science Foundation
+Contract number 24-29-00304
+https://rscf.ru/en/project/24-29-00304
+
 
 ---
 ---
@@ -45,7 +46,7 @@ I've tried to write fairly flexible modules to make modifications easier, but no
 # RUSSIAN
 Архив: https://github.com/quanuhs/VANET-old
 
-# VANET ⚙️[В РАЗРАБОТКЕ]⚙️
+# VANET
 Система для моделирования VANET, написанная на Godot.
 
 **ОБРАТИТЕ ВНИМАНИЕ: ОПИСАНИЕ README МОЖЕТ ДОПОЛНЯТЬСЯ**
@@ -80,8 +81,5 @@ Python с библиотекой osmnx
 ![Моделирование (карта) zoom-in](https://github.com/user-attachments/assets/b73f5a68-2082-4421-89e8-4cdbeb289b61)
 
 
-
-
-# От автора
-С помощью исходных файлов проекта, можно дополнить систему и привести её к нужной формы для моделирования. На данном этапе система находится в активной разработке. Некоторые порядок в организации файлов, улучшение читаемости кода и более комплексный функционал будет добавлен позднее.
-Я старался писать довольно гибкие модули, чтобы модифицировать было проще, но, ничто не идеально, работа кипит!
+Работа выполнена при финансовой поддержке Российского научного фонда по гранту No 24-29-00304
+https://rscf.ru/en/project/24-29-00304/

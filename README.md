@@ -1,7 +1,7 @@
 # ENGLISH
 Archive: https://github.com/quanuhs/VANET-old
 
-# VANET
+# VANET 2.0.0
 A system for simulating VANET, written in Godot.
 
 **NOTE: THE README DESCRIPTION MAY BE UPDATED**
@@ -46,7 +46,7 @@ https://rscf.ru/en/project/24-29-00304
 # RUSSIAN
 Архив: https://github.com/quanuhs/VANET-old
 
-# VANET
+# VANET 2.0.0
 Система для моделирования VANET, написанная на Godot.
 
 **ОБРАТИТЕ ВНИМАНИЕ: ОПИСАНИЕ README МОЖЕТ ДОПОЛНЯТЬСЯ**

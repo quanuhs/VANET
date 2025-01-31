@@ -34,6 +34,12 @@ As output, you will get files describing the graph: "nodes.csv" and "edges.csv".
 ![Simulation (map) zoom-out](https://github.com/user-attachments/assets/cce73744-e5f1-4687-81b6-e39773452307)
 ![Simulation (map) zoom-in](https://github.com/user-attachments/assets/b73f5a68-2082-4421-89e8-4cdbeb289b61)
 
+Video recording of utilized resources (compared to veins) can be found in link below:
+https://disk.yandex.ru/i/BjgKzyutozigEA
+[![Watch the video](https://github.com/user-attachments/assets/f20c95ba-6a7c-43f7-b9be-a82b3257e31d)](https://disk.yandex.ru/i/BjgKzyutozigEA)
+
+
+
 Research funded by Russian Science Foundation
 Contract number 24-29-00304
 https://rscf.ru/en/project/24-29-00304
@@ -79,6 +85,11 @@ Python с библиотекой osmnx
 ![Интерфейс пользователя](https://github.com/user-attachments/assets/1649118e-86c2-4538-bb4d-185dcbe2dd5b)
 ![Моделирование (карта) zoom-out](https://github.com/user-attachments/assets/cce73744-e5f1-4687-81b6-e39773452307)
 ![Моделирование (карта) zoom-in](https://github.com/user-attachments/assets/b73f5a68-2082-4421-89e8-4cdbeb289b61)
+
+
+Видеозапись потребляемых ресурсов, сравнение с Veins, доступно по ссылке:
+https://disk.yandex.ru/i/BjgKzyutozigEA
+[![Смотреть видео](https://github.com/user-attachments/assets/f20c95ba-6a7c-43f7-b9be-a82b3257e31d)](https://disk.yandex.ru/i/BjgKzyutozigEA)
 
 
 Работа выполнена при финансовой поддержке Российского научного фонда по гранту No 24-29-00304
